@@ -37,9 +37,25 @@
 #	      Servicio de Anulación de validación: https://200.71.241.110:9443/WSAnulationRechargeFacade/AnulationRechargeFacade?wsdl
 
 getHttpCode() {
-   status=$(curl --connect-timeout 3 --write-out "%{http_code}" --silent --output /dev/null -k "$1")
-   $resp=" HTTP_RESPONSE ($status)"
-   return $resp
+   cod=$(curl --connect-timeout 3 --write-out "%{http_code}" --silent --output /dev/null -k "$1")
+   
+    if [ "$cod" -lt 100 ]; then
+        echo "HTTP response: $cod [\e[0;31mERROR\e[0m] - Fallo la comunicación"
+    elif [ "$cod" -ge 100 ] &&  [ "$cod" -lt 200 ]; then
+        echo "HTTP response: $cod [\e[0;31mERROR\e[0m] - INFORMATIONA RESPONSE"
+    elif [ "$cod" -ge 200 ] &&  [ "$cod" -lt 300 ]; then
+        echo "HTTP response: $cod [\e[0;32mOK\e[0m] - Servicio funcionando"
+    elif [ "$cod" -ge 300 ] &&  [ "$cod" -lt 400 ]; then
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - REDIRECT"
+    elif [ "$cod" -ge 400 ] &&  [ "$cod" -lt 500 ]; then
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Client errors"
+    elif [ "$cod" -ge 500 ] &&  [ "$cod" -lt 600 ]; then
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Server error"
+    else
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Indeterminado"
+    fi
+    
+    return $resp
 }
      
 
@@ -48,16 +64,18 @@ servFact='1.1.1.1:443' # TEST cualquier ip
 #servFact=200.71.242.80:9702 # QA
 #servFact=200.71.242.19:9012 # PROD
 
+echo "\nServicio de Factura ($servFact)" 
 getHttpCode $servFact
-echo "\nServicio de Factura - $?" 
+#echo "\nServicio de Factura - $?" 
 
 # Servicio - Recargas Virtuales:
 servRecarga='1.1.1.1:80' # TEST cualquier ip
 #servRecarga=200.71.241.109:9701 # QA
 #servRecarga=200.71.241.110:9443 # PROD
 
+echo "\nServicio de Recarga ($servRecarga)" 
 getHttpCode $servRecarga
-echo "\nServicio de Recarga - $?" 
+#echo "\nServicio de Recarga - $?" 
 
 # TEST de todos los servicos 1 a 1
 # 
