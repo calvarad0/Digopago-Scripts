@@ -44,7 +44,7 @@ getHttpCode() {
      
 
 # Servicio de Factura
-servFact='1.1.1.1:443' # QA
+servFact='1.1.1.1:443' # TEST cualquier ip
 #servFact=200.71.242.80:9702 # QA
 #servFact=200.71.242.19:9012 # PROD
 
@@ -52,7 +52,7 @@ getHttpCode $servFact
 echo "\nServicio de Factura - $?" 
 
 # Servicio - Recargas Virtuales:
-servRecarga='1.1.1.1:80' # QA
+servRecarga='1.1.1.1:80' # TEST cualquier ip
 #servRecarga=200.71.241.109:9701 # QA
 #servRecarga=200.71.241.110:9443 # PROD
 
