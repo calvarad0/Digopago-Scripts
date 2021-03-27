@@ -59,31 +59,20 @@ servRecarga='1.1.1.1:80' # QA
 getHttpCode $servRecarga
 echo "\nServicio de Recarga - $?" 
 
+# TEST de todos los servicos 1 a 1
 # 
-# 
-# 
-# recarga=/WSRechargeFacade/RechargeFacade?wsdl
-# anulacion=/WSAnulationRechargeFacade/AnulationRechargeFacade?wsdl
-# recarga=
-# 
+# Contenido del test en QA
 # echo "Test Factura - 200.71.242.40"
-# 
-# 
 # curl --connect-timeout 3 -k https://200.71.242.80:9702/ApplyBillPaymentOrchestrator/ApplyBillPaymentOrchestratorService?wsdl
 # curl --connect-timeout 3 -k https://200.71.242.80:9702/CalculateBillingAmountPostpaid/CalculateBillingAmountPostpaidService?wsdl
 # echo "Test Recarga - 200.71.241.109"
-# curl --connect-timeout 3 -k https://200.71.241.109:9701$validacion
-# curl --connect-timeout 3 -k https://200.71.241.109:9701$recarga
+# curl --connect-timeout 3 -k https://200.71.241.109:9701/WSRechargeFacade/RechargeFacade?wsdl
+# curl --connect-timeout 3 -k https://200.71.241.109:9701/WSAnulationRechargeFacade/AnulationRechargeFacade?wsdl
 # 
+# Contenido en Prod
 # echo "Test recarga 200.71.241.110"
-# curl --connect-timeout 3 -k https://200.71.241.110:9443$validacion
-# curl --connect-timeout 3 -k https://200.71.241.110:9443$recarga
+# curl --connect-timeout 3 -k https://200.71.241.110:9443/WSRechargeFacade/RechargeFacade?wsdl
+# curl --connect-timeout 3 -k https://200.71.241.110:9443/WSAnulationRechargeFacade/AnulationRechargeFacade?wsdl
 # echo "Test factura 200.71.242.19"
 # curl --connect-timeout 3 -k https://200.71.242.19:9012/ApplyBillPaymentOrchestrator/ApplyBillPaymentOrchestratorService?wsdl
 # curl --connect-timeout 3 -k https://200.71.242.19:9012/CalculateBillingAmountPostpaid/CalculateBillingAmountPostpaidService?wsdl
-# 
-# 
-# 
-# 
-# status=$(curl --connect-timeout 3 --write-out "%{http_code}" --silent --output /dev/null -k https://200.71.242.80:9702/CalculateBillingAmountPostpaid/CalculateBillingAmountPostpaidService?wsdl)
-# echo "Status = $status"
