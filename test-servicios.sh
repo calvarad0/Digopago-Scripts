@@ -40,19 +40,19 @@ getHttpCode() {
    cod=$(curl --connect-timeout 3 --write-out "%{http_code}" --silent --output /dev/null -k "$1")
    
     if [ "$cod" -lt 100 ]; then
-        echo "HTTP response: $cod [ERROR] - Fallo la comunicación"
+        echo "HTTP response: $cod [\e[0;31mERROR\e[0m] - Fallo la comunicación"
     elif [ "$cod" -ge 100 ] &&  [ "$cod" -lt 200 ]; then
-        echo "HTTP response: $cod [ERROR] - INFORMATIONA RESPONSE"
+        echo "HTTP response: $cod [\e[0;31mERROR\e[0m] - INFORMATIONA RESPONSE"
     elif [ "$cod" -ge 200 ] &&  [ "$cod" -lt 300 ]; then
-        echo "HTTP response: $cod [OK] - Servicio funcionando"
+        echo "HTTP response: $cod [\e[0;32mOK\e[0m] - Servicio funcionando"
     elif [ "$cod" -ge 300 ] &&  [ "$cod" -lt 400 ]; then
-        echo "HTTP response: $cod [EROR] - REDIRECT"
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - REDIRECT"
     elif [ "$cod" -ge 400 ] &&  [ "$cod" -lt 500 ]; then
-        echo "HTTP response: $cod [EROR] - Client errors"
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Client errors"
     elif [ "$cod" -ge 500 ] &&  [ "$cod" -lt 600 ]; then
-        echo "HTTP response: $cod [EROR] - Server error"
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Server error"
     else
-        echo "HTTP response: $cod [EROR] - Indeterminado"
+        echo "HTTP response: $cod [\e[0;31mEROR\e[0m] - Indeterminado"
     fi
     
     return $resp
@@ -64,7 +64,7 @@ servFact='1.1.1.1:443' # QA
 #servFact=200.71.242.80:9702 # QA
 #servFact=200.71.242.19:9012 # PROD
 
-echo "\nServicio de Factura" 
+echo "\nServicio de Factura ($servFact)" 
 getHttpCode $servFact
 #echo "\nServicio de Factura - $?" 
 
@@ -73,7 +73,7 @@ servRecarga='1.1.1.1:80' # QA
 #servRecarga=200.71.241.109:9701 # QA
 #servRecarga=200.71.241.110:9443 # PROD
 
-echo "\nServicio de Recarga" 
+echo "\nServicio de Recarga ($servRecarga)" 
 getHttpCode $servRecarga
 #echo "\nServicio de Recarga - $?" 
 
