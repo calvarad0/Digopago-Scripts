@@ -35,6 +35,8 @@
 #	      Servicio de Validación: https://200.71.241.110:9443/WSValidateRechargeFacade/WSValidateRechargeFacade?wsdl
 #	      Servicio de Recarga: https://200.71.241.110:9443/WSRechargeFacade/RechargeFacade?wsdl 
 #	      Servicio de Anulación de validación: https://200.71.241.110:9443/WSAnulationRechargeFacade/AnulationRechargeFacade?wsdl
+#
+#   Author: Carlos A.
 
 getHttpCode() {
    cod=$(curl --connect-timeout 3 --write-out "%{http_code}" --silent --output /dev/null -k "$1")
